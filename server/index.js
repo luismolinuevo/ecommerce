@@ -4,6 +4,9 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
+import passport from "passport";
+import setupJWTStrategy from "./middlewares/auth.js";
+import authRouter from "./routes/auth.js"
 
 const db = process.env.DATABASE_URL;
 
@@ -22,9 +25,9 @@ export default function createServer() {
 
     app.use(morgan("tiny"));
 
-    // setupJWTStrategy(passport);
+    setupJWTStrategy(passport);
 
-    // app.use("/auth", authRouter);
+    app.use("/auth", authRouter);
     // app.use("/books", bookRouter(passport));
 
     return app;
